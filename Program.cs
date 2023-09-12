@@ -18,10 +18,8 @@ namespace MyFirstProgram
 
             while (true)
             {
+                // main menu options
                 string mainMenuOption = MainMenu();
-                // Console.WriteLine("What would you like to do?");
-                // Console.WriteLine("'a' to Add, 'r' to remove, 's' to show tasks, or 'q' to quit ");
-                // string prompt = Console.ReadLine();
                 if (mainMenuOption == "q")
                 {
                     break; // Exit code entirely
@@ -31,41 +29,6 @@ namespace MyFirstProgram
                     addNewTask(taskList, taskAmount);
                 }
 
-                // if (prompt.ToLower() == "q") // If 'q' is pressed, the program stops completely.
-                // {
-                //     break;
-                // }
-
-                /*
-                    The code below executes functions for if the 'a' button is pressed.
-                    Tasks will be added in UPPERCASE format to the list of tasks, then the amount of tasks increase.
-                    User will be allowed to enter as many tasks as possible until the 'b' key is pressed.
-                */
-                // else if (prompt == "a")
-                // {
-                //     Console.WriteLine("Enter as many tasks as needed. When done, enter 'b' to go back");
-
-                //     while (true)
-                //     {
-                //         Console.WriteLine("I need to...");
-                //         string task = Console.ReadLine();
-
-                //         if (task.ToLower() == "b")
-                //         {
-                //             Console.Clear();
-                //             break;
-                //         }
-
-                //         task = task.ToUpper();
-
-                //         Console.WriteLine("Task added.");
-
-                //         taskList.Add(task);
-                //         taskAmount++;
-                //     }
-
-
-                // }
             //     else if (prompt == "s")
             //     {
             //         Console.WriteLine($"You have {taskAmount} tasks.");
@@ -175,7 +138,7 @@ namespace MyFirstProgram
         }
         static string MainMenu()
         {
-
+            // Serves as main menu
             string prompt;
 
             Console.WriteLine("What would you like to do?");
@@ -208,7 +171,6 @@ namespace MyFirstProgram
 
             return prompt.ToLower(); // Outputs response letter if a, s, r, or q
         }
-
         static bool IsValidMenuOption(string input)
         {
             // Check to see if user entered valid menu option
