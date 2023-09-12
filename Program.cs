@@ -169,21 +169,61 @@ namespace MyFirstProgram
 
 
 
-                }
+            }
+            Console.WriteLine("Press enter to confirm exit...");
             Console.ReadKey();
         }
         static string MainMenu()
         {
+
+            string prompt;
+
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("'a' to add tasks, 'r' to remove, 's' to show tasks, or 'q' to quit ");
-            string prompt = Console.ReadLine();
-            while (string.IsNullOrEmpty(prompt))
-            {
-                Console.WriteLine("Nothing Entered.");
-            }
-            prompt = prompt.ToLower();
+            prompt = Console.ReadLine();
 
-            return prompt;
+            do
+            {
+                Console.WriteLine("Invalid Response\n");
+                Console.WriteLine("What would you like to do?");
+                Console.WriteLine("'a' to add tasks, 'r' to remove, 's' to show tasks, or 'q' to quit ");
+                prompt = Console.ReadLine();
+
+            } while (string.IsNullOrEmpty(prompt) || !IsValidMenuOption(prompt));
+
+            // while (string.IsNullOrEmpty(prompt))
+            // {
+            //     Console.WriteLine("Nothing Entered.");
+            //     prompt = Console.ReadLine();
+            // }
+
+            // prompt = prompt.ToLower(); // make lowercase before checking
+            // while (prompt != "a" || prompt != "r" || prompt != "s" || prompt != "q")
+            // {
+            //     Console.WriteLine("Not a valid item");
+            //     prompt = Console.ReadLine();
+            //     prompt = prompt.ToLower();
+            // }
+
+
+            return prompt.ToLower(); // Outputs response letter if a, s, r, or q
+        }
+
+        static bool IsValidMenuOption(string input)
+        {
+            // Check to see if user entered valid menu option
+            switch (input)
+            {
+                case "a":
+                    return true;
+                case "r":
+                    return true;
+                case "b":
+                    return true;
+                case "q":
+                    return true;
+            }
+            return false;
         }
         static void addNewTask(List<string> taskList, int taskAmount)
         {
