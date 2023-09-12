@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj": {}
+    "C:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj": {
+    "C:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj",
+        "projectUniqueName": "C:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj",
         "projectName": "ToDo",
-        "projectPath": "c:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj",
+        "projectPath": "C:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj",
         "packagesPath": "C:\\Users\\Isaiah Vickers\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\obj\\",
+        "outputPath": "C:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Isaiah Vickers\\AppData\\Roaming\\NuGet\\NuGet.Config",

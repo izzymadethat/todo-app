@@ -13,3 +13,17 @@
 /home/izzy/Documents/Projects/ToDo/obj/Debug/net7.0/ToDo.pdb
 /home/izzy/Documents/Projects/ToDo/obj/Debug/net7.0/ToDo.genruntimeconfig.cache
 /home/izzy/Documents/Projects/ToDo/obj/Debug/net7.0/ref/ToDo.dll
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\bin\Debug\net7.0\ToDo.exe
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\bin\Debug\net7.0\ToDo.deps.json
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\bin\Debug\net7.0\ToDo.runtimeconfig.json
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\bin\Debug\net7.0\ToDo.dll
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\bin\Debug\net7.0\ToDo.pdb
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\ToDo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\ToDo.AssemblyInfoInputs.cache
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\ToDo.AssemblyInfo.cs
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\ToDo.csproj.CoreCompileInputs.cache
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\ToDo.dll
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\refint\ToDo.dll
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\ToDo.pdb
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\ToDo.genruntimeconfig.cache
+C:\Users\Isaiah Vickers\Documents\GitHub\C#Projects\ToDoApp\todo-app\obj\Debug\net7.0\ref\ToDo.dll
