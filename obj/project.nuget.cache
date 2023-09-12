@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "X23te9rQEzNiUK7uVlq2rn2ZxdYTA9stvsYmCznJx9oc0kaVMEtJvWOd/6CZycKdpT0w/4n8YFDT+3UP42xPrg==",
+  "dgSpecHash": "ngmO3JlFdcKC7taBXzaY2JIdxPG8iK15p8Vu+j8JlD6WMjytpB0hy721IMkbE+odToz+Q6L3DS6xihBDYmqOTw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj",
+  "projectFilePath": "c:\\Users\\Isaiah Vickers\\Documents\\GitHub\\C#Projects\\ToDoApp\\todo-app\\ToDo.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
