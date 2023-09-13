@@ -28,13 +28,8 @@ namespace MyFirstProgram
                 }
                 else if (MainMenuOption == "s")
                 {
-                    string backOption = ShowTasks(taskAmount, taskList);
-                    bool mainMenu = ReturnToMainMenu(backOption);
+                    ShowTasks(taskAmount, taskList);
 
-                    if (mainMenu)
-                    {
-                        continue;
-                    }
                 }
 
             //     else if (prompt == "r")
@@ -160,22 +155,6 @@ namespace MyFirstProgram
             return false;
 
         }
-        static bool ReturnToMainMenu(string backOption)
-        {
-            Console.WriteLine("\nPress 'b' to go back.");
-            backOption = Console.ReadLine();
-
-            if (backOption == "b")
-            {
-                Console.WriteLine("Going back. Press Enter to Continue.\n");
-                Console.ReadKey();
-                Console.Clear();
-
-                return true;
-            }
-
-            return false;
-        }
         static void AddNewTask(List<string> taskList, int taskAmount)
         {
             /*
@@ -220,7 +199,7 @@ namespace MyFirstProgram
             }
 
         }
-        static string ShowTasks(int taskAmount, List<string> taskList)
+        static void ShowTasks(int taskAmount, List<string> taskList)
         {
             // Code written to show user the tasks they have written.
             Console.WriteLine($"You have {taskAmount} tasks.");
@@ -234,7 +213,15 @@ namespace MyFirstProgram
                 }
             }
 
-            return "b";
+            Console.WriteLine("\nPress 'b' to go back.");
+            string backOption = Console.ReadLine();
+
+            if (backOption == "b")
+            {
+                Console.WriteLine("Going back. Press Enter to Continue.\n");
+                Console.ReadKey();
+                Console.Clear();
+            }
 
         }
     }
