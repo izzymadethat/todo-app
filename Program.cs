@@ -8,48 +8,35 @@ namespace MyFirstProgram
 {
     class Program
     {
-        // public int taskAmount = 0; // init # of Tasks
-        static void Main(string[] args)
+        static int taskAmount = 0; // init # of tasks
+        static List<string> taskList = new List<string>(); // init task list
+        static void Main()
         {
             Console.WriteLine("\t\t\t=== To-Do List ===\n");
-
-            int taskAmount = 0; // init # of tasks
-            List<string> taskList = new List<string>(); // init task list
 
             while (true)
             {
                 // main menu options
-                string mainMenuOption = MainMenu();
-                if (mainMenuOption == "q")
+                string MainMenuOption = MainMenu();
+                if (MainMenuOption == "q")
                 {
                     break; // Exit code entirely
                 }
-                else if (mainMenuOption == "a")
+                else if (MainMenuOption == "a")
                 {
-                    addNewTask(taskList, taskAmount);
+                    AddNewTask(taskList, taskAmount);
+                }
+                else if (MainMenuOption == "s")
+                {
+                    string backOption = ShowTasks(taskAmount, taskList);
+                    bool mainMenu = ReturnToMainMenu(backOption);
+
+                    if (mainMenu)
+                    {
+                        continue;
+                    }
                 }
 
-            //     else if (prompt == "s")
-            //     {
-            //         Console.WriteLine($"You have {taskAmount} tasks.");
-
-            //         if (taskAmount > 0)
-            //         {
-            //             Console.WriteLine("\nTask No.\t\t\tTask\n");
-            //             for (int i = 0; i < taskList.Count; i++)
-            //             {
-            //                 Console.WriteLine($"{i + 1}\t\t\t\t{taskList[i]}");
-            //             }
-            //         }
-
-            //         Console.WriteLine("\nPress 'b' to go back.");
-            //         string back = Console.ReadLine();
-            //         if (back == "b")
-            //         {
-            //             Console.Clear();
-            //             continue;
-            //         }
-            //     }
             //     else if (prompt == "r")
             //     {
             //         if (taskAmount > 0)
@@ -145,31 +132,16 @@ namespace MyFirstProgram
             Console.WriteLine("'a' to add tasks, 'r' to remove, 's' to show tasks, or 'q' to quit ");
             prompt = Console.ReadLine();
 
-            do
+            while (string.IsNullOrEmpty(prompt) || !IsValidMenuOption(prompt))
             {
                 Console.WriteLine("Invalid Response\n");
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("'a' to add tasks, 'r' to remove, 's' to show tasks, or 'q' to quit ");
                 prompt = Console.ReadLine();
-
-            } while (string.IsNullOrEmpty(prompt) || !IsValidMenuOption(prompt));
-
-            // while (string.IsNullOrEmpty(prompt))
-            // {
-            //     Console.WriteLine("Nothing Entered.");
-            //     prompt = Console.ReadLine();
-            // }
-
-            // prompt = prompt.ToLower(); // make lowercase before checking
-            // while (prompt != "a" || prompt != "r" || prompt != "s" || prompt != "q")
-            // {
-            //     Console.WriteLine("Not a valid item");
-            //     prompt = Console.ReadLine();
-            //     prompt = prompt.ToLower();
-            // }
-
+            }
 
             return prompt.ToLower(); // Outputs response letter if a, s, r, or q
+
         }
         static bool IsValidMenuOption(string input)
         {
@@ -180,14 +152,31 @@ namespace MyFirstProgram
                     return true;
                 case "r":
                     return true;
-                case "b":
+                case "s":
                     return true;
                 case "q":
                     return true;
             }
             return false;
+
         }
-        static void addNewTask(List<string> taskList, int taskAmount)
+        static bool ReturnToMainMenu(string backOption)
+        {
+            Console.WriteLine("\nPress 'b' to go back.");
+            backOption = Console.ReadLine();
+
+            if (backOption == "b")
+            {
+                Console.WriteLine("Going back. Press Enter to Continue.\n");
+                Console.ReadKey();
+                Console.Clear();
+
+                return true;
+            }
+
+            return false;
+        }
+        static void AddNewTask(List<string> taskList, int taskAmount)
         {
             /*
             The code below executes functions for if the 'a' button is pressed.
@@ -205,12 +194,13 @@ namespace MyFirstProgram
             {
                 Console.WriteLine("I need to...");
                 string task = Console.ReadLine();
+                task = task.ToLower();
 
                 if (string.IsNullOrEmpty(task))
                 {
                     Console.WriteLine("Enter a task");
                 }
-                else if (task.ToLower() == "b")
+                else if (task == "b")
                 {
                     Console.WriteLine("Going back. Press Enter to Continue.\n");
                     Console.ReadKey();
@@ -228,7 +218,24 @@ namespace MyFirstProgram
                     taskAmount++;
                 }
             }
-        }
 
+        }
+        static string ShowTasks(int taskAmount, List<string> taskList)
+        {
+            // Code written to show user the tasks they have written.
+            Console.WriteLine($"You have {taskAmount} tasks.");
+
+            if (taskAmount > 0)
+            {
+                Console.WriteLine("\nTask No.\t\t\tTask\n");
+                for (int i = 0; i < taskList.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}\t\t\t\t{taskList[i]}");
+                }
+            }
+
+            return "b";
+
+        }
     }
 }
