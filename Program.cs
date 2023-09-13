@@ -24,11 +24,11 @@ namespace MyFirstProgram
                 }
                 else if (MainMenuOption == "a")
                 {
-                    AddNewTask(taskList, taskAmount);
+                    AddNewTask();
                 }
                 else if (MainMenuOption == "s")
                 {
-                    ShowTasks(taskAmount, taskList);
+                    ShowTasks();
 
                 }
 
@@ -155,7 +155,7 @@ namespace MyFirstProgram
             return false;
 
         }
-        static void AddNewTask(List<string> taskList, int taskAmount)
+        static void AddNewTask()
         {
             /*
             The code below executes functions for if the 'a' button is pressed.
@@ -199,7 +199,7 @@ namespace MyFirstProgram
             }
 
         }
-        static void ShowTasks(int taskAmount, List<string> taskList)
+        static void ShowTasks()
         {
             // Code written to show user the tasks they have written.
             Console.WriteLine($"You have {taskAmount} tasks.");
