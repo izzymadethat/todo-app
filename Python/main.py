@@ -12,7 +12,11 @@ def run():
         menu_option = run.main_menu()
         
         if menu_option == 'q':
-            break
+            exit_ = confirm_exit()
+            if exit_ == 'q':
+                break
+            else:
+                continue
         elif menu_option == 'a':
             run.add_tasks()
         elif menu_option == 'r':
@@ -22,9 +26,27 @@ def run():
         
 
     # Exit program
-    confirm_exit = input("\nPress ENTER or any key to exit...")
+    
     print("Goodbye! Thanks for using my to-do app!")
     run.clear_system()
+
+def confirm_exit():
+    """Final confirmation for user to confirm quit."""
+    quit_app = False
+    exit_confirm = input("\nPress 'q' again to quit or 'b' to go back...")
+    while not quit_app:
+        if exit_confirm.lower() == 'q':
+            quit_app = True
+        elif exit_confirm.lower() == 'b':
+            print("Heading Back...")
+            time.sleep(2)
+            os.system('clear')
+            quit_app = True
+        else:
+            print("'b' to go back or 'q' to quit.")
+            exit_confirm = input("\nPress 'q' again to quit or 'b' to go back...")
+    
+    return exit_confirm.lower()
 
 class TaskManager:
     "Functions that run the task options"
@@ -32,6 +54,7 @@ class TaskManager:
     def __init__(self):
         self.tasks = []
         self.task_amount = 0
+        self.removed_tasks = []
 
     def main_menu(self):
         """
@@ -98,33 +121,71 @@ class TaskManager:
     def remove_tasks(self):
         """All functions to remove any one or all tasks."""
 
-        self.format_tasks()
-
         if self.task_amount <= 0:
             print("Nothing to remove!\n")
-                
             self.go_back()
+            return
+
+        print("What would you like to remove?")
+        print("Type Enter to go back or -1 to remove all tasks. Otherwise, type the number of the task you wish to move.")
+        print("Also type 't' to view your removed tasks")
+
+        while True:
+            list = self.tasks
+            self.format_tasks(list) # reformats tasks when and if removed one by one.         
+            index = input()
+
+            if index == "" or index.lower == 'b':
+                print("Returning to main menu...")
+                time.sleep(2)
+                break # Exit function without removing anything
+            elif index.lower() ==  't':
+                list = self.removed_tasks
+                self.format_tasks(list)
+                time.sleep(2)
+                continue
+
+            try:
+                index = int(index)
+                if index == -1:
+                    # self.remove_all_tasks()
+                    pass
+                # if task is available to be removed
+                elif index > 0 and index <= len(self.tasks):
+                    removed_task = self.tasks.pop(index-1) # remove at index in list
+                    self.removed_tasks.append(removed_task)
+                    print(f"{removed_task} removed.")
+                    self.task_amount -= 1
+                else:
+                    print("Not a valid entry.\n")
+            except ValueError or IndexError: # if user doesn't enter a number or item in list
+                print("Not a valid entry.\n")
+
     
     def task_view(self):
         """Displays tasks with option to return to menu."""
 
-        self.format_tasks()
+        list = self.tasks
+        self.format_tasks(list)
         self.go_back()
-
+    
     def clear_system(self):
         """Handles function to clean console."""           
         
         time.sleep(2)
         os.system('clear')
 
-    def format_tasks(self):
+    def format_tasks(self, list):
         """Makes the list of tasks pretty to look at."""
 
-        print(f"\t\t\t-----You have {self.task_amount} task(s)-----\n")
+        if list == self.tasks:
+            print(f"\t\t\t-----You have {len(list)} task(s)-----\n")
+        elif list == self.removed_tasks:
+            print(f"\t\t\t-----You have {len(list)} removed task(s)-----\n")
 
-        if self.task_amount > 0: # If user has any tasks to display
+        if len(list) > 0: # If user has any tasks to display
             print("Task No.\t\tTask Name")
-            for idx, task in enumerate(self.tasks, start=1):
+            for idx, task in enumerate(list, start=1):
                 print(f"{idx}\t\t\t~ {task.title()}")
     
     def go_back(self):
@@ -135,5 +196,6 @@ class TaskManager:
         if back_option.lower() == 'b':
             print("Heading back...")
             self.clear_system()
-        
-run()
+
+if __name__ == '__main__':
+    run()
