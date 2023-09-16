@@ -6,11 +6,11 @@ import time
 def run():
     run = TaskManager()
     run.clear_system()
-    
+
     # Program functions
     while True:
         menu_option = run.main_menu()
-        
+
         if menu_option == 'q':
             exit_ = confirm_exit()
             if exit_ == 'q':
@@ -23,10 +23,10 @@ def run():
             run.remove_tasks()
         elif menu_option == 's':
             run.task_view()
-        
+
 
     # Exit program
-    
+
     print("Goodbye! Thanks for using my to-do app!")
     run.clear_system()
 
@@ -45,7 +45,7 @@ def confirm_exit():
         else:
             print("'b' to go back or 'q' to quit.")
             exit_confirm = input("\nPress 'q' again to quit or 'b' to go back...")
-    
+
     return exit_confirm.lower()
 
 class TaskManager:
@@ -58,7 +58,7 @@ class TaskManager:
 
     def main_menu(self):
         """
-            Main menu feature. 
+            Main menu feature.
             The user must enter a, r, s, or q in order to successfully exit the menu.
         """
         print("What would you like to do?")
@@ -72,13 +72,13 @@ class TaskManager:
             print("What would you like to do?")
             print("'a' to Add Tasks, 'r' to Remove Tasks, 's' to Show Tasks, or 'q' to Quit")
             prompt = input()
-            valid_menu_option = self.is_valid_menu_option(prompt) 
+            valid_menu_option = self.is_valid_menu_option(prompt)
 
-        return prompt.lower() # will only return a, s, r, or q      
+        return prompt.lower() # will only return a, s, r, or q
 
     def is_valid_menu_option(self, input):
         """
-            Checks if user has entered the correct term. 
+            Checks if user has entered the correct term.
             Returns true or false.
         """
         input_value = input.lower()
@@ -113,7 +113,7 @@ class TaskManager:
             else:
                 task = add_task.upper()
                 print(f"{task} : Task Added\n")
-                
+
                 # Add task to tasks list and increment task amount
                 self.tasks.append(task)
                 self.task_amount += 1
@@ -128,11 +128,11 @@ class TaskManager:
 
         print("What would you like to remove?")
         print("Type Enter to go back or -1 to remove all tasks. Otherwise, type the number of the task you wish to move.")
-        print("Also type 't' to view your removed tasks")
+        print("You can also type 't' to view your removed tasks")
 
         while True:
             list = self.tasks
-            self.format_tasks(list) # reformats tasks when and if removed one by one.         
+            self.format_tasks(list) # reformats tasks when and if removed one by one.
             index = input()
 
             if index == "" or index.lower == 'b':
@@ -161,17 +161,17 @@ class TaskManager:
             except ValueError or IndexError: # if user doesn't enter a number or item in list
                 print("Not a valid entry.\n")
 
-    
+
     def task_view(self):
         """Displays tasks with option to return to menu."""
 
         list = self.tasks
         self.format_tasks(list)
         self.go_back()
-    
+
     def clear_system(self):
-        """Handles function to clean console."""           
-        
+        """Handles function to clean console."""
+
         time.sleep(2)
         os.system('clear')
 
@@ -187,10 +187,10 @@ class TaskManager:
             print("Task No.\t\tTask Name")
             for idx, task in enumerate(list, start=1):
                 print(f"{idx}\t\t\t~ {task.title()}")
-    
+
     def go_back(self):
         """Handles all go back options so I didn't have to keep typing it."""
-        
+
         back_option = input("Type 'b' to go back ")
 
         if back_option.lower() == 'b':
