@@ -14,15 +14,25 @@ namespace MyFirstProgram
         static List<string> removedTasks = new List<string>(); // removed task list
         static void Main()
         {
+            ClearSystem(); // initialize console
+
             Console.WriteLine("\t\t\t=== To-Do List ===\n");
 
             while (true)
             {
                 // main menu options
                 string MainMenuOption = MainMenu();
-                if (MainMenuOption == "q")
+                if (MainMenuOption == "q") // Exit code entirely
                 {
-                    break; // Exit code entirely
+                    string exit_ = ConfirmExit();
+                    if (exit_ == "q")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
                 else if (MainMenuOption == "a")
                 {
@@ -39,15 +49,15 @@ namespace MyFirstProgram
                 }
 
             }
-            Console.WriteLine("Press enter to confirm exit...");
-            Console.ReadKey();
+            Console.WriteLine("Goodbye! Thanks for using my to-do app!");
+            ClearSystem();
         }
 
         static string ConfirmExit()
         {
             // Final confirmation before exiting program
             bool quitApp = false;
-            Console.WriteLine("\nPress 'q' again to quit or 'b' to go back...")
+            Console.WriteLine("\nPress 'q' again to quit or 'b' to go back...");
             string exit_confirm = Console.ReadLine();
 
             while (!quitApp)
@@ -58,11 +68,18 @@ namespace MyFirstProgram
                 }
                 else if (exit_confirm.ToLower() == "b")
                 {
-                    Console.WriteLine("Heading back...")
+                    Console.WriteLine("Heading back...");
                     ClearSystem();
-                    quitApp = true
+                    quitApp = true;
+                }
+                else
+                {
+                    Console.WriteLine("'b' to go back or 'q' to quit.");
+                    exit_confirm = Console.ReadLine();
                 }
             }
+
+            return exit_confirm.ToLower();
 
         }
         static string MainMenu()
@@ -183,13 +200,13 @@ namespace MyFirstProgram
                 return;
             }
 
-            Console.WriteLine("What would you like to remove?");
-            Console.WriteLine("Type 'b' to go back or -1 to remove all tasks.");
-            Console.WriteLine("Otherwise, type the number of the task you wish to move.");
-            Console.WriteLine("You can also type 't' to view your removed tasks");
 
             while (true)
             {
+                Console.WriteLine("\nWhat would you like to remove?");
+                Console.WriteLine("Type 'b' to go back or 'a' to remove all tasks.");
+                Console.WriteLine("Otherwise, type the number of the task you wish to move.");
+                Console.WriteLine("You can also type 't' to view your removed tasks");
                 FormatTasks(taskList.ToArray());
                 string index = Console.ReadLine();
 
@@ -202,7 +219,7 @@ namespace MyFirstProgram
                     case "":
                         ClearSystem();
                         return;
-                    case "-1":
+                    case "a":
                         RemoveAllTasks();
                         ClearSystem();
                         return;
@@ -218,16 +235,16 @@ namespace MyFirstProgram
                             {
                                 int i = indexNumber-1; // list starts at 0 instead of 1
                                 Console.WriteLine($"'{taskList[i]}' removed.");
+                                removedTasks.Add(taskList[i]); // Add to removed tasks list
                                 taskList.RemoveAt(i); // Remove task at specified index
                                 taskAmount--;
 
                                 Console.WriteLine("Press 'Enter'");
                                 Console.ReadKey();
-                                Console.Clear();
                             }
                             else
                             {
-                                Console.WriteLine("You Have No Tasks to Remove!");
+                                Console.WriteLine("Not a valid position in list.");
                                 break;
                             }
 
@@ -238,7 +255,7 @@ namespace MyFirstProgram
                         }
                         catch (FormatException)
                         {
-                            Console.WriteLine("Enter a valid menu item.");
+                            Console.WriteLine("Enter a valid menu item or number.");
                         }
                         break;
                 }
