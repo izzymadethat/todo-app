@@ -42,6 +42,29 @@ namespace MyFirstProgram
             Console.WriteLine("Press enter to confirm exit...");
             Console.ReadKey();
         }
+
+        static string ConfirmExit()
+        {
+            // Final confirmation before exiting program
+            bool quitApp = false;
+            Console.WriteLine("\nPress 'q' again to quit or 'b' to go back...")
+            string exit_confirm = Console.ReadLine();
+
+            while (!quitApp)
+            {
+                if (exit_confirm.ToLower() == "q")
+                {
+                    quitApp = true;
+                }
+                else if (exit_confirm.ToLower() == "b")
+                {
+                    Console.WriteLine("Heading back...")
+                    ClearSystem();
+                    quitApp = true
+                }
+            }
+
+        }
         static string MainMenu()
         {
             // Serves as main menu
@@ -219,48 +242,7 @@ namespace MyFirstProgram
                         }
                         break;
                 }
-
             }
-            // if (taskAmount > 0)
-            // {
-            //     FormatTasks(); // Show user the tasks
-
-
-            //     int index = Convert.ToInt32(Console.ReadLine());
-
-            //     switch (index)
-            //     {
-            //         case 0:
-            //             return;
-            //         case -1:
-            //             RemoveAllTasks();
-            //             return;
-            //         default:
-            //             break;
-            //     }
-
-            //     if (index > 0 && index <= taskList.Count)
-            //     {
-            //         int i = index-1; // list starts at 0 instead of 1
-            //         Console.WriteLine($"'{taskList[i]}' removed.");
-            //         taskList.RemoveAt(i); // Remove task at specified index
-            //         taskAmount--;
-
-            //         Console.WriteLine("Press 'Enter'");
-            //         Console.ReadKey();
-            //         Console.Clear();
-            //     }
-            //     else // If user has no tasks at all
-            //     {
-            //         Console.WriteLine("Not a valid position in list.");
-            //     }
-
-            // }
-            // else
-            // {
-            //     Console.WriteLine("You Have No Tasks to Remove!");
-            // }
-
         }
         static void RemoveAllTasks()
         {
