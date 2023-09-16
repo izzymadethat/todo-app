@@ -105,9 +105,8 @@ namespace MyFirstProgram
                 }
                 else if (task == "b")
                 {
-                    Console.WriteLine("Going back. Press Enter to Continue.\n");
-                    Console.ReadKey();
-                    Console.Clear();
+                    Console.WriteLine("Heading back...");
+                    ClearSystem();
                     break;
                 }
                 else
@@ -127,15 +126,7 @@ namespace MyFirstProgram
         {
             // Displays tasks with option to return to menu
             FormatTasks(taskList.ToArray());
-            Console.WriteLine("\nPress 'b' to go back.");
-            string backOption = Console.ReadLine();
-
-            if (backOption == "b")
-            {
-                Console.WriteLine("Going back. Press Enter to Continue.\n");
-                Console.ReadKey();
-                Console.Clear();
-            }
+            GoBack();
         }
         static void FormatTasks(string[] list)
         {
@@ -179,19 +170,56 @@ namespace MyFirstProgram
                 FormatTasks(taskList.ToArray());
                 string index = Console.ReadLine();
 
-                switch (index)
+                switch (index.ToLower())
                 {
                     case "b":
+                        Console.WriteLine("Heading Back...");
+                        ClearSystem();
                         return; // Exits the function entirely
+                    case "":
+                        ClearSystem();
+                        return;
                     case "-1":
                         RemoveAllTasks();
+                        ClearSystem();
                         return;
                     case "t":
                         FormatTasks(removedTasks.ToArray());
-                        return;
+                        break;
                     default:
+                        try
+                        {
+                            int indexNumber = Convert.ToInt32(index);
+
+                            if (indexNumber > 0 && indexNumber <= taskList.Count)
+                            {
+                                int i = indexNumber-1; // list starts at 0 instead of 1
+                                Console.WriteLine($"'{taskList[i]}' removed.");
+                                taskList.RemoveAt(i); // Remove task at specified index
+                                taskAmount--;
+
+                                Console.WriteLine("Press 'Enter'");
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else
+                            {
+                                Console.WriteLine("You Have No Tasks to Remove!");
+                                break;
+                            }
+
+                        }
+                        catch (ArgumentOutOfRangeException) // If user has no tasks at all
+                        {
+                            Console.WriteLine("Not a valid position in list.");
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Enter a valid menu item.");
+                        }
                         break;
                 }
+
             }
             // if (taskAmount > 0)
             // {
