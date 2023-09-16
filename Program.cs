@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace MyFirstProgram
 {
@@ -10,6 +11,7 @@ namespace MyFirstProgram
     {
         static int taskAmount = 0; // init # of tasks
         static List<string> taskList = new List<string>(); // init task list
+        static List<string> removedTasks = new List<string>(); // removed task list
         static void Main()
         {
             Console.WriteLine("\t\t\t=== To-Do List ===\n");
@@ -39,6 +41,29 @@ namespace MyFirstProgram
             }
             Console.WriteLine("Press enter to confirm exit...");
             Console.ReadKey();
+        }
+
+        static string ConfirmExit()
+        {
+            // Final confirmation before exiting program
+            bool quitApp = false;
+            Console.WriteLine("\nPress 'q' again to quit or 'b' to go back...")
+            string exit_confirm = Console.ReadLine();
+
+            while (!quitApp)
+            {
+                if (exit_confirm.ToLower() == "q")
+                {
+                    quitApp = true;
+                }
+                else if (exit_confirm.ToLower() == "b")
+                {
+                    Console.WriteLine("Heading back...")
+                    ClearSystem();
+                    quitApp = true
+                }
+            }
+
         }
         static string MainMenu()
         {
@@ -103,9 +128,8 @@ namespace MyFirstProgram
                 }
                 else if (task == "b")
                 {
-                    Console.WriteLine("Going back. Press Enter to Continue.\n");
-                    Console.ReadKey();
-                    Console.Clear();
+                    Console.WriteLine("Heading back...");
+                    ClearSystem();
                     break;
                 }
                 else
@@ -124,77 +148,101 @@ namespace MyFirstProgram
         static void ShowTasks()
         {
             // Displays tasks with option to return to menu
-            FormatTasks();
-            Console.WriteLine("\nPress 'b' to go back.");
-            string backOption = Console.ReadLine();
-
-            if (backOption == "b")
-            {
-                Console.WriteLine("Going back. Press Enter to Continue.\n");
-                Console.ReadKey();
-                Console.Clear();
-            }
-
+            FormatTasks(taskList.ToArray());
+            GoBack();
         }
-        static void FormatTasks()
+        static void FormatTasks(string[] list)
         {
             // Code written to show user the tasks they have written.
-            Console.WriteLine($"You have {taskAmount} tasks.");
+            if (list == taskList.ToArray())
+            {
+                Console.WriteLine($"\t\t\t----You have {list.Length} task(s).----\n");
+            }
+            else if (list == removedTasks.ToArray())
+            {
+                Console.WriteLine($"\t\t\t----You have {list.Length} removed task(s).----\n");
+            }
 
-            if (taskAmount > 0)
+            if (list.Length > 0) // Display amount of tasks if there's any.
             {
                 Console.WriteLine("\nTask No.\t\t\tTask\n");
-                for (int i = 0; i < taskList.Count; i++)
+                for (int i = 0; i < list.Length; i++)
                 {
-                    Console.WriteLine($"{i + 1}\t\t\t\t{taskList[i]}");
+                    Console.WriteLine($"{i + 1}\t\t\t\t{list[i]}");
                 }
             }
         }
         static void RemoveTasks()
         {
-            // Handles all options to remove tasks.
-            if (taskAmount > 0)
+            // All functions to remove any one or all tasks.
+
+            if (taskAmount <= 0) // no tasks available
             {
-                FormatTasks(); // Show user the tasks
+                Console.WriteLine("Nothing to remove!");
+                GoBack();
+                return;
+            }
 
-                Console.WriteLine("What would you like to remove?");
-                Console.WriteLine("Type 0 to go back or -1 to remove all tasks. Otherwise, type the number of the task you wish to move.");
+            Console.WriteLine("What would you like to remove?");
+            Console.WriteLine("Type 'b' to go back or -1 to remove all tasks.");
+            Console.WriteLine("Otherwise, type the number of the task you wish to move.");
+            Console.WriteLine("You can also type 't' to view your removed tasks");
 
-                int index = Convert.ToInt32(Console.ReadLine());
+            while (true)
+            {
+                FormatTasks(taskList.ToArray());
+                string index = Console.ReadLine();
 
-                switch (index)
+                switch (index.ToLower())
                 {
-                    case 0:
+                    case "b":
+                        Console.WriteLine("Heading Back...");
+                        ClearSystem();
+                        return; // Exits the function entirely
+                    case "":
+                        ClearSystem();
                         return;
-                    case -1:
+                    case "-1":
                         RemoveAllTasks();
+                        ClearSystem();
                         return;
+                    case "t":
+                        FormatTasks(removedTasks.ToArray());
+                        break;
                     default:
+                        try
+                        {
+                            int indexNumber = Convert.ToInt32(index);
+
+                            if (indexNumber > 0 && indexNumber <= taskList.Count)
+                            {
+                                int i = indexNumber-1; // list starts at 0 instead of 1
+                                Console.WriteLine($"'{taskList[i]}' removed.");
+                                taskList.RemoveAt(i); // Remove task at specified index
+                                taskAmount--;
+
+                                Console.WriteLine("Press 'Enter'");
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else
+                            {
+                                Console.WriteLine("You Have No Tasks to Remove!");
+                                break;
+                            }
+
+                        }
+                        catch (ArgumentOutOfRangeException) // If user has no tasks at all
+                        {
+                            Console.WriteLine("Not a valid position in list.");
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Enter a valid menu item.");
+                        }
                         break;
                 }
-
-                if (index > 0 && index <= taskList.Count)
-                {
-                    int i = index-1; // list starts at 0 instead of 1
-                    Console.WriteLine($"'{taskList[i]}' removed.");
-                    taskList.RemoveAt(i); // Remove task at specified index
-                    taskAmount--;
-
-                    Console.WriteLine("Press 'Enter'");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-                else // If user has no tasks at all
-                {
-                    Console.WriteLine("Not a valid position in list.");
-                }
-
             }
-            else
-            {
-                Console.WriteLine("You Have No Tasks to Remove!");
-            }
-
         }
         static void RemoveAllTasks()
         {
@@ -210,10 +258,7 @@ namespace MyFirstProgram
                     taskList.Clear(); // Remove all elements from list
                     Console.WriteLine("All tasks removed.");
                     taskAmount = 0;
-                    Console.WriteLine("Press 'Enter' to go back");
-
-                    Console.ReadKey();
-                    Console.Clear();
+                    GoBack();
                     removeAll = true;
                 }
                 else if (confirm.ToLower() == "n")
@@ -227,6 +272,26 @@ namespace MyFirstProgram
                 }
             }
 
+        }
+        static void GoBack()
+        {
+            // Handles all back options so I don't have to keep typing it
+
+            Console.WriteLine("Enter 'b' to go back...");
+            string back_option = Console.ReadLine();
+            back_option = back_option.ToLower();
+
+            if (back_option == "b")
+            {
+                Console.WriteLine("Heading back...");
+                ClearSystem();
+            }
+        }
+        static void ClearSystem()
+        {
+            // Handles function to delay and clean system.
+            Thread.Sleep(2000);
+            Console.Clear();
         }
     }
 }
