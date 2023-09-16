@@ -166,19 +166,13 @@ namespace MyFirstProgram
         {
             // Displays tasks with option to return to menu
             FormatTasks(taskList.ToArray());
+            DisplayTasks(taskList.ToArray());
             GoBack();
         }
-        static void FormatTasks(string[] list)
+
+        static void DisplayTasks(string[] list)
         {
-            // Code written to show user the tasks they have written.
-            if (list == taskList.ToArray())
-            {
-                Console.WriteLine($"\t\t\t----You have {list.Length} task(s).----\n");
-            }
-            else if (list == removedTasks.ToArray())
-            {
-                Console.WriteLine($"\t\t\t----You have {list.Length} removed task(s).----\n");
-            }
+            // Refactored code to clean FormatTasks function
 
             if (list.Length > 0) // Display amount of tasks if there's any.
             {
@@ -187,6 +181,23 @@ namespace MyFirstProgram
                 {
                     Console.WriteLine($"{i + 1}\t\t\t\t{list[i]}");
                 }
+
+                Thread.Sleep(2000);
+            }
+        }
+        static void FormatTasks(string[] list)
+        {
+            // Code written to show user the tasks they have written.
+
+            if (list == taskList.ToArray())
+            {
+                Console.WriteLine($"\t\t\t----You have {list.Length} task(s)");
+                DisplayTasks(taskList.ToArray());
+            }
+            else if (list == removedTasks.ToArray())
+            {
+                Console.WriteLine($"\t\t\t----You have {list.Length} removed task(s).----\n");
+                DisplayTasks(removedTasks.ToArray());
             }
         }
         static void RemoveTasks()
@@ -207,7 +218,9 @@ namespace MyFirstProgram
                 Console.WriteLine("Type 'b' to go back or 'a' to remove all tasks.");
                 Console.WriteLine("Otherwise, type the number of the task you wish to move.");
                 Console.WriteLine("You can also type 't' to view your removed tasks");
+
                 FormatTasks(taskList.ToArray());
+                DisplayTasks(taskList.ToArray());
                 string index = Console.ReadLine();
 
                 switch (index.ToLower())
